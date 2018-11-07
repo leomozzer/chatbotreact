@@ -33,16 +33,20 @@ export const conversaWatson = ((mensagem, contexto) =>{
         //chama o backend do watson (firebase CF)
         const url = 'https://us-central1-react-chatbot-leo.cloudfunctions.net/conversa'
         axios
-            .post(url, { input: mensagem.text, context: contexto})
+            .post(url, {input: mensagem.texto, context: contexto})
             .then((data) => {
+                //console.log('msg.texto'+mensagem.texto)
                 dispatch(conversaWatsonSucess(data))
                 const msg = {
                     texto: data.data.output.text[0],
                     origem: 'bot'
                 }
-                //console.log(msg.texto)
+                console.log('input usuario no watsonjs'+mensagem.texto)
+                //console.log('msg.texto'+mensagem.texto)
+                //console.log('data.data.input'+[data.data.input]);
+                //console.log(data.data.input)
                 dispatch(enviaMensagem(msg))
             })
             .catch(() => dispatch(conversaWatsonError()))
     }
-})
+}) 

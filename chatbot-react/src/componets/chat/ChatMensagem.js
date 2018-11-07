@@ -12,16 +12,18 @@ class ChatMensagem extends Component {
         super(props)
 
         this.inputEnviatexto = this.inputEnviatexto.bind(this);
+        this.props.conversaWatson("inicio", '')
     }
 
     inputEnviatexto(e){
         
         if(e.keyCode ===13){
-            console.log(e.target.value);
+            //console.log('input do usuário '+e.target.value);
             const mensagem = {
                 texto: e.target.value,
                 origem: 'user'
             }
+            console.log('texto'+mensagem.texto);
             
             let contexto = {}
             
@@ -29,7 +31,7 @@ class ChatMensagem extends Component {
                 contexto = this.props.resposta.data.context
             }
             this.props.enviaTexto(mensagem)
-            this.props.conversaWatson(mensagem)
+            this.props.conversaWatson(mensagem, contexto)
             e.target.value = ''
             
         }
@@ -55,8 +57,9 @@ class ChatMensagem extends Component {
 
 const mapDispacthToPros = (dispatch)=>{
     return{
-        enviaTexto: (msg) => dispatch(enviaMensagem(msg)), 
-        conversaWatson: (msg) => dispatch(conversaWatson(msg, ''))
+        enviaTexto: (msg) => dispatch(enviaMensagem(msg)),
+        //conversaWatson: (msg) => dispatch(conversaWatson(msg, ''))
+        conversaWatson: (msg, contexto) => dispatch(conversaWatson(msg, contexto))
     }
 }
 
