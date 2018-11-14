@@ -2,6 +2,7 @@ import axios from 'axios'
 
 import { enviaMensagem } from './chat'
 
+
 export const conversaWatsonRequest = ()=>{
     return{
         type: 'CONVERSA_WATSON_REQUEST',
@@ -30,7 +31,25 @@ export const conversaWatsonError = () => {
 export const conversaWatson = ((mensagem, contexto) =>{
     return dispatch => {
         dispatch(conversaWatsonRequest())
+
+        console.log('conversaWatson')
+        console.log(mensagem)
+
         //chama o backend do watson (firebase CF)
+        /*if(mensagem){
+            console.log('mensagem '+mensagem)
+        }
+        if(mensagem.texto){
+            console.log('mensagem '+mensagem.texto)
+        }
+        if(mensagem.text){
+            console.log('mensagem '+ mensagem.text)
+        }*/
+        //const test = mensagem.texto
+
+        console.log('axios parameter')
+        console.log({input: mensagem, context: contexto})
+
         const url = 'https://us-central1-react-chatbot-leo.cloudfunctions.net/conversa'
         axios
             .post(url, {input: mensagem.texto, context: contexto})
@@ -41,7 +60,7 @@ export const conversaWatson = ((mensagem, contexto) =>{
                     texto: data.data.output.text[0],
                     origem: 'bot'
                 }
-                console.log('input usuario no watsonjs'+mensagem.texto)
+                
                 //console.log('msg.texto'+mensagem.texto)
                 //console.log('data.data.input'+[data.data.input]);
                 //console.log(data.data.input)

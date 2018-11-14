@@ -23,7 +23,7 @@ class ChatMensagem extends Component {
                 texto: e.target.value,
                 origem: 'user'
             }
-            console.log('texto'+mensagem.texto);
+            console.log(mensagem);
             
             let contexto = {}
             
